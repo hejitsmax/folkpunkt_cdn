@@ -3,6 +3,8 @@ console.log("FOLKPUNKT JS Loaded");
 (function () {
     console.log("folkpunkt_cdn function started");
 
+    let modificationsDone = false;
+
     function modifyElements() {
         let modified = false;
 
@@ -45,7 +47,7 @@ console.log("FOLKPUNKT JS Loaded");
             modified = true;
         }
 
-        // 6. Remove user avatar button
+        // 6. Remove user avatar button (if logged in as Max Taylor)
         const userAvatarBtn = document.querySelector('.avatar__sr-text');
         if (userAvatarBtn && userAvatarBtn.textContent.trim() === 'Max Taylor') {
             const parentBtn = userAvatarBtn.closest('button');
@@ -55,20 +57,26 @@ console.log("FOLKPUNKT JS Loaded");
             }
         }
 
-        if (modified) console.log("FOLKPUNKT: Modifications applied.");
+        // Only print + disconnect observer after success
+        if (modified && !modificationsDone) {
+            console.log("FOLKPUNKT: Modifications applied.");
+            modificationsDone = true;
+            observer.disconnect();
+        }
     }
 
-    // Run once immediately
+    // Run once in case elements already exist
     modifyElements();
 
-    // Observe DOM changes and re-apply modifications as needed
+    // Observe future DOM changes (once only)
     const observer = new MutationObserver(() => {
-        modifyElements();
+        if (!modificationsDone) {
+            modifyElements();
+        }
     });
 
     observer.observe(document.body, {
         childList: true,
         subtree: true,
     });
-
 })();
