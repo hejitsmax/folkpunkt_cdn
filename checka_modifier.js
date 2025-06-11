@@ -1,3 +1,5 @@
+console.log("FOLKPUNKT Compatibility script fetched.")
+
 // 1. Remove the "Continue to shop" button
 const continueShopBtn = document.querySelector('button.btn--emphasised[aria-label="Continue to shop"]');
 if (continueShopBtn) continueShopBtn.remove();
