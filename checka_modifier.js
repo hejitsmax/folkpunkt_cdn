@@ -3,11 +3,14 @@ console.log("FOLKPUNKT JS Loaded");
 (function() {
     console.log("folkpunkt_cdn function started");
 
+    let retries = 0;
+    const maxRetries = 20;
+
     function tryModify() {
         let found = false;
 
         // 1. Remove the "Continue to shop" button
-        const continueShopBtn = document.querySelector('button.btn--emphasised[aria-label="Continue to shop"]');
+        const continueShopBtn = document.querySelector('button[aria-label="Continue to shop"]');
         console.log("continueShopBtn", continueShopBtn);
         if (continueShopBtn) {
             continueShopBtn.remove();
@@ -15,7 +18,7 @@ console.log("FOLKPUNKT JS Loaded");
         }
 
         // 2. Change button text to 'Start order on FOLKPUNKT'
-        const orderButton = document.querySelector('button.btn--secondary[aria-label="Order on behalf of co-worker"] .btn__label');
+        const orderButton = document.querySelector('button[aria-label="Order on behalf of co-worker"] .btn__label');
         console.log("orderButton", orderButton);
         if (orderButton) {
             orderButton.textContent = 'Start order on FOLKPUNKT';
@@ -50,8 +53,8 @@ console.log("FOLKPUNKT JS Loaded");
             found = true;
         }
 
-        // 6. Remove user avatar button
-        const userAvatarBtn = document.querySelector('button.btn--small.btn--plain .avatar__sr-text');
+        // 6. Remove user avatar button (by name)
+        const userAvatarBtn = document.querySelector('.avatar__sr-text');
         console.log("userAvatarBtn", userAvatarBtn);
         if (userAvatarBtn && userAvatarBtn.textContent.trim() === 'Max Taylor') {
             const parentBtn = userAvatarBtn.closest('button');
@@ -68,8 +71,12 @@ console.log("FOLKPUNKT JS Loaded");
             console.log("FOLKPUNKT: Modifications applied.");
             return;
         }
-        // Keep trying every 500ms until at least one element is found and modified
-        setTimeout(waitForElements, 500);
+        if (retries < maxRetries) {
+            retries++;
+            setTimeout(waitForElements, 500);
+        } else {
+            console.warn("FOLKPUNKT: Elements not found after max retries.");
+        }
     }
 
     waitForElements();
