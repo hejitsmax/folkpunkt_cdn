@@ -9,7 +9,7 @@ console.log("FOLKPUNKT JS Loaded");
         const welcomeH1 = document.querySelector('.checka-order_welcome_text_wrapper h1');
         const startInstructions = document.querySelector('h1.text--heading-s[aria-label^="Get started"]');
         const tabsContainer = document.querySelector('.cwds-tabs__container.cwds-header__tabs');
-        const avatarText = document.querySelector('.avatar__sr-text');
+        const avatarText = document.querySelector('.avatar');
 
         let anyChange = false;
 
