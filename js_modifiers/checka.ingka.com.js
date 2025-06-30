@@ -9,7 +9,7 @@ console.log("FOLKPUNKT JS Loaded");
         const welcomeH1 = document.querySelector('.checka-order_welcome_text_wrapper h1');
         const startInstructions = document.querySelector('h1.text--heading-s[aria-label^="Get started"]');
         const tabsContainer = document.querySelector('.cwds-tabs__container.cwds-header__tabs');
-        const avatarText = document.querySelector('.avatar');
+        const avatarText = document.querySelector('.avatar__sr-text');
 
         let anyChange = false;
 
@@ -42,7 +42,7 @@ console.log("FOLKPUNKT JS Loaded");
             anyChange = true;
         }
 
-        if (avatarText?.textContent.trim() === 'Max Taylor') {
+        if (avatarText?.textContent.trim() === 'sac flkpnkt') {
             const avatarBtn = avatarText.closest('button');
             if (avatarBtn) {
                 avatarBtn.remove();
