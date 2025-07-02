@@ -10,7 +10,8 @@ console.log("FOLKPUNKT JS Loaded");
         const startInstructions = document.querySelector('h1.text--heading-s[aria-label^="Get started"]');
         const tabsContainer = document.querySelector('.cwds-tabs__container.cwds-header__tabs');
         const avatarText = document.querySelector('.avatar__sr-text');
-
+        const locationSelectWrappers = document.querySelectorAll('.label-wrapper--text-input.select--hint');
+        
         let anyChange = false;
 
         if (continueBtn) {
@@ -49,6 +50,15 @@ console.log("FOLKPUNKT JS Loaded");
                 anyChange = true;
             }
         }
+
+ // Check each wrapper for a <select> with the correct ID
+        locationSelectWrappers.forEach(wrapper => {
+            const select = wrapper.querySelector('select#admin-locations');
+            if (select) {
+                wrapper.remove();
+                anyChange = true;
+            }
+        });
 
         if (anyChange) {
             console.log("FOLKPUNKT: Modifications applied.");
